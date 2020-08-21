@@ -156,7 +156,6 @@ const obj = {
 
 function flatForObject(object) {
     let newObject = {};
-
     for (let key in object) {
         if (object[key].toString() === '[object Object]') {
             const buffer = flatForObject(object[key]);
@@ -184,3 +183,75 @@ let object = {
     e: 'e',
 };
 console.log(flatForObject(object));
+
+/*1) Реализовать метод flat для MyArray (сделать как точную копию метода flat у Array; Использовать рекурсию; */
+
+function MyArray() {
+    this.length = 0;
+    for (let i = 0; i < arguments.length; i++) {
+        this[this.length] = arguments[i];
+        this.length++;
+    };
+};
+
+function ArrayMethods() {
+    this.pop = function () {
+        let lastElement = this[this.length-1];
+        delete this[this.length-1];
+        this.length = this.length - 1;
+        return lastElement;
+    };
+
+    this.push = function () {
+        for (let i = 0; i < arguments.length; i++) {
+            this[this.length] = arguments[i];
+            this.length++;
+        }
+        return this.length;
+    };
+
+    this.forEach = function (callback, thisArg = this) {
+        for(let i = 0; i < thisArg.length; i++) {
+            callback(thisArg[i], i, thisArg);
+        }
+    };
+
+    this.toString = () => '[object MyArray]'
+
+    this.isMyArray = (MyArray) => {
+        return MyArray.toString() === '[object MyArray]' && Object.prototype.toString.call(MyArray) === '[object Object]';
+    }
+
+    this.flat = function flatMethod(array = this, depth = 1) {
+        let newArray = new MyArray();
+        if (depth < 0) {
+            console.error("depth must be a positive value");
+            return;
+        }
+        if (depth === 0) {
+            newArray = array;
+            return newArray;
+        }
+        for(let i = 0; i < array.length; i++){
+            if(MyArray.prototype.isMyArray(array[i])) {
+                const buffer = flatMethod(array[i], depth - 1);
+                for(let j = 0; j < buffer.length; j++){
+                    newArray.push(buffer[j]);
+                }
+            } else {
+                newArray.push(array[i]);
+            }
+        }
+        return newArray;
+    }
+};
+
+MyArray.prototype = new ArrayMethods();
+
+const myArr = new MyArray('11', '22', '33', '44');
+const myArr2 = new MyArray('55', '66', '77', myArr);
+const myArr3 = new MyArray('99', myArr, '1111', myArr2);
+const myArr4 = new MyArray('99', '1010', 222, myArr3);
+console.log('myArr4: ', myArr4);
+const newMyArr = myArr4.flat(myArr4, 2);
+console.log('newMyArr: ', newMyArr);
