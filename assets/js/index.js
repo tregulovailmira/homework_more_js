@@ -122,3 +122,17 @@ const result = addNum();
 console.log('result = ', result(20));
 console.log('result = ', result(50));
 console.log('result = ', result(500));
+
+/*5) Напишите функцию operation(num1, num2, fn), в которой num1 и num2 — числовые переменные,
+а fn — функция, которая берет два аргумента и выполняет математическую операцию над ними*/
+
+const number1 = 34;
+const number2 = 55;
+function getMathOperation (arg1, arg2) {
+    return arg1 + arg2;
+};
+
+function operation(num1, num2, fn) {
+    return fn(num1, num2);
+};
+console.log(operation(number1, number2, getMathOperation));
