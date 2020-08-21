@@ -35,3 +35,20 @@ const user = {
         return this.workedHours * this.perHourRate;
     },
 }
+
+/*1)Нужно написать функцию, принимающую строку в качестве аргумента и возвращающую количество гласных,
+которые содержатся в строке.
+Гласными являются «a», «e», «i», «o», «u».
+строки - итерируемые.*/
+
+function getNumberOfVowels(string) {
+    let sumOfVowels = 0;
+    for(let item of string) {
+        if(item === 'a' || item === 'e' || item === 'i' || item === 'o' || item === 'u') {
+            sumOfVowels += 1;
+        }
+    }
+    return sumOfVowels;
+};
+const string = 'dcdsmfwreiuof';
+console.log('number of vowels: ', getNumberOfVowels(string));
