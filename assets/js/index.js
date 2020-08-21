@@ -135,7 +135,7 @@ function getMathOperation (arg1, arg2) {
 function operation(num1, num2, fn) {
     return fn(num1, num2);
 };
-console.log(operation(number1, number2, getMathOperation));
+console.log('operation result: ', operation(number1, number2, getMathOperation));
 
 /*6) Создать объект obj, с методами method1(),method2() и method3(). В методе method3() должна
 возвращаться строка «метод3». Сделайте так, чтобы было возможно выполнение кода obj.method1().method2().method3()*/
@@ -151,3 +151,36 @@ const obj = {
         return 'method3';
     },
 };
+
+/*2) Написать функцию глубокого выравнивания для объекта. (flat для объектов).*/
+
+function flatForObject(object) {
+    let newObject = {};
+
+    for (let key in object) {
+        if (object[key].toString() === '[object Object]') {
+            const buffer = flatForObject(object[key]);
+            for (let keyInBuffer in buffer) {
+                newObject[keyInBuffer] = buffer[keyInBuffer]; //вывоод без названия ключа, в котором был вложен объект (e4: 'e6')
+                //newObject[key + '.' + keyInBuffer] = buffer[keyInBuffer]; //либо так - складывать вложенный ключ к исходному, чтобы понимать, куда был вложен объект (b.c.e4: 'e6')
+            }
+        } else {
+            newObject[key] = object[key];
+        }
+    }
+    return newObject;
+};
+let object = {
+    a: 'a',
+    b: {
+        b1: {b2: 'b3',},
+        d4: 'b5',
+    },
+    c: {
+        c4: 'c6',
+        c5: 'c7',
+    },
+    d: 'd',
+    e: 'e',
+};
+console.log(flatForObject(object));
