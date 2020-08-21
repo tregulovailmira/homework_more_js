@@ -104,4 +104,21 @@ function average(...args) {
     }
     return args.reduce((accumulator, item) => accumulator + item)/args.length;
 };
-console.log(average(5, 5, 5, 10, 18));
+console.log('average of arguments: ', average(5, 5, 5, 10, 18));
+
+/*4) Напишите функцию addNum(n), которая вернёт другую функцию. Возвращенная функция должна складывать
+получаемый аргумент с аргументом n возвращающей функции.
+замыкание.*/
+
+function addNum(number) {
+    let counter = 0;
+
+    return function (number) {
+        return counter += number;
+    }
+};
+
+const result = addNum();
+console.log('result = ', result(20));
+console.log('result = ', result(50));
+console.log('result = ', result(500));
