@@ -52,3 +52,44 @@ function getNumberOfVowels(string) {
 };
 const string = 'dcdsmfwreiuof';
 console.log('number of vowels: ', getNumberOfVowels(string));
+
+/*2)Требуется написать функцию, выводящую в консоль числа от 1 до n, где n — это целое число, которая функция
+принимает в качестве параметра, с такими условиями:
+вывод fizzbuzz вместо чисел, кратных как 3, так и 5.
+вывод fizz вместо чисел, кратных 3;
+вывод buzz вместо чисел, кратных 5;*/
+
+
+function logNumbers(n) { // с использованием массивов
+    const array = [];
+    for(let i = 0; i < n; i++) {
+        array[i] = i + 1;
+    }
+    console.log(array);
+    for(let i = 0; i < n; i++) {
+        if (array[i] % 3 === 0 && array[i] % 5 === 0) {
+            console.log('fizzbuzz');
+        } else if (array[i] % 3 === 0) {
+            console.log('fizz');
+        } else if (array[i] % 5 === 0) {
+            console.log('buzz');
+        } else {
+            console.log(array[i]);
+        }
+    }
+}
+
+function logNumbers2(n) {
+    for(let i = 1; i <= n; i++) {
+        if(i % 3 === 0 && i % 5 === 0) {
+            console.log('fizzbuzz');
+        } else if (i % 3 === 0) {
+            console.log('fizz');
+        } else if (i % 5 === 0) {
+            console.log('buzz');
+        } else
+            console.log(i);
+    }
+};
+logNumbers(20);
+logNumbers2(20);
