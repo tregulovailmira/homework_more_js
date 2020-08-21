@@ -93,3 +93,15 @@ function logNumbers2(n) {
 };
 logNumbers(20);
 logNumbers2(20);
+
+/*3) Создайте функцию avg() , которая будет находить среднее значение по всем своим аргументам.*/
+
+function average(...args) {
+    const isInvalid = args.some((item) => isNaN(item));
+    if (isInvalid) {
+        console.error('invalid value');
+        return;
+    }
+    return args.reduce((accumulator, item) => accumulator + item)/args.length;
+};
+console.log(average(5, 5, 5, 10, 18));
